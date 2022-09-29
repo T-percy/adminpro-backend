@@ -10,23 +10,15 @@ const server = express();
 // Configurar CORS
 server.use(cors());
 
+// Lectura y Parseo del body - Debe ir antes de las rutas
+server.use(express.json());
+
 // Base de datos
 dbConnection();
 
-//console.log(process.env);
-
 //Rutas
-server.get('/', (req, res) => {
-
-    res.json({ 
-        ok: true,
-        msg: 'Primera ruta'
-    });
-});
-
-
-
-
+server.use('/api/users', require('./routes/users'));
+server.use('/api/login', require('./routes/auth'));
 
 server.listen(process.env.PORT, () => {
     console.log('Server running on port ' + process.env.PORT);
