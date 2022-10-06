@@ -14,6 +14,9 @@ const server = express();
 // Configurar CORS
 server.use(cors());
 
+// Carpeta pública
+server.use(express.static('public'));
+
 // Lectura y Parseo del body - Debe ir antes de las rutas
 server.use(express.json());
 
