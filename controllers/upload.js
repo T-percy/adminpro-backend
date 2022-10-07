@@ -11,7 +11,7 @@ const fileUpload = (req, res= response) => {
     const id = req.params.id;
 
     // Validar tipos de archivos válidos
-    const validTypes = ['medico', 'hospital', 'user'];
+    const validTypes = ['medico', 'hospital', 'usuario'];
 
     if (!validTypes.includes(tipo)) {
         return res.status(400).json({

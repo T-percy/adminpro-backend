@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const { generateJWT } = require('../helpers/jwt');
 
 const User = require('../models/user');
-const Medico = require('../models/medico');
+const Doctor = require('../models/doctor');
 const Hospital = require('../models/hospital');
 
 const getAll = async (req, res= response) => {
@@ -12,9 +12,9 @@ const getAll = async (req, res= response) => {
     const busqueda = req.params.busqueda;
     const regex = new RegExp(busqueda, 'i');
 
-    const [users, medicos, hospitales] = await Promise.all([
+    const [users, doctors, hospitals] = await Promise.all([
         User.find({name: regex}),
-        Medico.find({name: regex}),
+        Doctor.find({name: regex}),
         Hospital.find({name: regex}),
     ])
 
@@ -22,8 +22,8 @@ const getAll = async (req, res= response) => {
         ok: true,
         busqueda,
         users,
-        medicos,
-        hospitales,
+        doctors,
+        hospitals,
     });
 }
 
@@ -36,12 +36,12 @@ const getCollection = async (req, res= response) => {
     let data = [];
 
     switch (tabla) {
-        case 'users':
+        case 'usuarios':
             data = await User.find({name: regex});
             break;
 
         case 'medicos':
-            data = await Medico.find({name: regex})
+            data = await Doctor.find({name: regex})
                                 .populate('user', 'name img')
                                 .populate('hospital', 'name img');
             break;

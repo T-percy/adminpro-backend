@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 
 const User = require('../models/user');
 const Hospital = require('../models/hospital');
-const Medico = require('../models/medico');
+const Doctor = require('../models/doctor');
 
 const deleteImage = (path) => {
     // Verificar si hay imagen guardada
@@ -12,7 +12,6 @@ const deleteImage = (path) => {
     }
 }
 
-
 const updateImage = async (tipo, id, filename) => {
 
     let pathOld = '';
@@ -20,31 +19,31 @@ const updateImage = async (tipo, id, filename) => {
     switch (tipo) {
         case 'medico':
             // Verificar si existe médico
-            const medico = await Medico.findById(id);
-            if (!medico) {
-                console.log('No se encontró médico con el Id');
+            const doctor = await Doctor.findById(id);
+            if (!doctor) {
+                console.log(`No se encontró médico con el Id ${id}`);
                 return false;
             }
 
             // Eliminar imagen previa
-            pathOld = `./uploads/medico/${medico.img}`;
+            pathOld = `./uploads/medico/${doctor.img}`;
             deleteImage(pathOld);
 
             // Guardar nueva imagen
-            medico.img = filename;
-            await medico.save();
+            doctor.img = filename;
+            await doctor.save();
             return true;
             
         break;
 
-        case 'user':
+        case 'usuario':
             const user = await User.findById(id);
             if (!user) {
-                console.log('No se encontró usuario con el Id');
+                console.log(`No se encontró usuario con el Id ${id}`);
                 return false;
             }
 
-            pathOld = `./uploads/user/${user.img}`;
+            pathOld = `./uploads/usuario/${user.img}`;
             deleteImage(pathOld);
 
             user.img = filename;
@@ -56,7 +55,7 @@ const updateImage = async (tipo, id, filename) => {
         case 'hospital':
             const hospital = await Hospital.findById(id);
             if (!hospital) {
-                console.log('No se encontró hospital con el Id');
+                console.log(`No se encontró hospital con el Id ${id}`);
                 return false;
             }
 

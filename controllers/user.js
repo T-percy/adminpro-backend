@@ -111,8 +111,8 @@ const deleteUser = async (req, res = response) => {
     
     const uid = req.params.id;
     try {
-
         const userDB = await User.findById(uid);
+
         if (!userDB) {
             return res.status(404).json({
                 ok: false,

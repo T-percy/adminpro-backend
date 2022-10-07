@@ -24,12 +24,12 @@ server.use(express.json());
 dbConnection();
 
 //Rutas
-server.use('/api/user', require('./routes/user'));
+server.use('/api/usuario', require('./routes/user'));
 server.use('/api/login', require('./routes/auth'));
 server.use('/api/hospital', require('./routes/hospital'));
-server.use('/api/medico', require('./routes/medico'));
-server.use('/api/todo', require('./routes/busqueda'));
-server.use('/api/upload', require('./routes/upload'));
+server.use('/api/medico', require('./routes/doctor'));
+server.use('/api/buscar', require('./routes/busqueda'));
+server.use('/api/cargar', require('./routes/upload'));
 
 server.listen(process.env.PORT, () => {
     console.log('Server running on port ' + process.env.PORT);
